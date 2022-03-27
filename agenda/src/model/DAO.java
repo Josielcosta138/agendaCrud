@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-//import com.mysql.cj.xdevapi.Result;
+//import com.mysql.cj.xdevapi.Result;  
 
 public class DAO {
 	// Modulo de conexão 
