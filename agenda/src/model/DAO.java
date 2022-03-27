@@ -9,7 +9,7 @@ import java.util.ArrayList;
 //import com.mysql.cj.xdevapi.Result;
 
 public class DAO {
-	// Modulo de conexão
+	// Modulo de conexão 
 
 	// Parâmetros de conexão
 	private String driver = "com.mysql.cj.jdbc.Driver";
