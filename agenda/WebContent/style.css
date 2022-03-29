@@ -43,6 +43,14 @@ h1{
 
 }
 
+#caixa3 {
+	padding: 5px;
+	margin-botto: 10px;
+	border: 1px solid #ff0000;
+	border-radius: 5px;
+	
+}
+
 #tabela {
 	margin-top: 30px;
 	border-collapse: collapse;

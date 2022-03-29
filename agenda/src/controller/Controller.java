@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.DAO;
 import model.JavaBeans;
 
-@WebServlet(urlPatterns = { "/Controller", "/main", "/insert", "/select" })
+@WebServlet(urlPatterns = { "/Controller", "/main", "/insert", "/select", "/update" }) // Essa linha recebe as REQUISIÇÕES por /nome
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	DAO dao = new DAO();
@@ -23,18 +23,24 @@ public class Controller extends HttpServlet {
 
 	}
 
+	//Método principal do SERVELet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = request.getServletPath();
 		System.out.println(action);
-		if (action.equals("/main")) {
+		if (action.equals("/main")) {  // /main acessou a Agenda
 			contatos(request, response);
-		} else if (action.equals("/insert")) {
+			
+		} else if (action.equals("/insert")) { // /insert  Inseriu um novo Usuário
 			novoContato(request, response);
-		}else if(action.equals("/select")) {	
+			
+		}else if(action.equals("/select")) {	 // /select Selecinou o usário pela lista da agenda do banco de dados
 			listarContato(request, response);
+			
+		}else if(action.equals("/update")) {	// /update atualizou um Usuário pelo Editar e encaminhou os dados do formulario para camada Controler
+				editarContato(request, response);
 		} else {
-			response.sendRedirect("index.html");
+			response.sendRedirect("index.html"); // index. Iniciou o agenda
 		}
 	}
 
@@ -77,7 +83,7 @@ public class Controller extends HttpServlet {
 		response.sendRedirect("main");
 	}
 	// editar contato
-	protected void listarContato(HttpServletRequest request, HttpServletResponse response) {
+	protected void listarContato(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//recebe o id do contato que será editado
 		String idcon = request.getParameter("idcon");
 		//System.out.println(idcon); teste
@@ -86,6 +92,14 @@ public class Controller extends HttpServlet {
 		contato.setIdcon(idcon);
 		// Executar o método selecionarContato (DAO)
 		dao.selecionarContado(contato);
+		// Setar os atributos do formulário com o conteudi JavaBeans
+		request.setAttribute("idcon", contato.getIdcon());
+		request.setAttribute("nome", contato.getNome());
+		request.setAttribute("fone", contato.getFone());
+		request.setAttribute("email", contato.getEmail());
+		// Encaminhar ao documento editar.jsp
+		RequestDispatcher rd = request.getRequestDispatcher("editar.jsp");
+		rd.forward(request, response);
 		//teste de recebimento 
 		/*
 		System.out.println(contato.getIdcon());
@@ -93,6 +107,13 @@ public class Controller extends HttpServlet {
 		System.out.println(contato.getFone());
 		System.out.println(contato.getEmail());
 		*/
+	}
+	protected void editarContato(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException {
+		
+		/* Setar as váriaveis JavaBeans */
+		
+		
+		
 	}
 	
 	 
