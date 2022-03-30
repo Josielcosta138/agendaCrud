@@ -12,8 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import model.DAO;
 import model.JavaBeans;
 
-@WebServlet(urlPatterns = { "/Controller", "/main", "/insert", "/select", "/update" }) // Essa linha recebe as
-																						// REQUISIÇÕES por /nome
+@WebServlet(urlPatterns = { "/Controller", "/main", "/insert", "/select", "/update", "/delete" }) // Essa linha recebe
+																									// as main....
+
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	DAO dao = new DAO();
@@ -41,6 +42,11 @@ public class Controller extends HttpServlet {
 		} else if (action.equals("/update")) { // /update atualizou um Usuário pelo Editar e encaminhou os dados do
 												// formulario para camada Controler
 			editarContato(request, response);
+
+		} else if (action.equals("/delete")) { // /delete de um Usuário pelo Editar e encaminhou os dados do
+												// formulario para camada Controler
+			removerContato(request, response);
+
 		} else {
 			response.sendRedirect("index.html"); // index. Iniciou o agenda
 		}
@@ -122,13 +128,25 @@ public class Controller extends HttpServlet {
 		contato.setNome(request.getParameter("nome"));
 		contato.setFone(request.getParameter("fone"));
 		contato.setEmail(request.getParameter("email"));
-		//executar método alterarContato
+		// executar método alterarContato
 		dao.alterarContato(contato);
-		
-		// redirecionar para o documento agenda.jsp
-				response.sendRedirect("main");
 
+		// redirecionar para o documento agenda.jsp
+		response.sendRedirect("main");
 
 	}
 
+	// remover contato
+	protected void removerContato(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// recebe o id do contato a ser ecluido (validador.js)
+		String idcon = request.getParameter("idcon");
+		// setar variavel idcon JavaBeans
+		contato.setIdcon(idcon);
+		// executar método deletarContato DAO passando objeto contato
+		dao.deletarContato(contato);
+
+		// redirecionar para o documento agenda.jsp
+		response.sendRedirect("main");
+	}
 }

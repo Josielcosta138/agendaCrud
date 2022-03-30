@@ -34,11 +34,13 @@
 					<td><%=lista.get(i).getNome()%></td>
 					<td><%=lista.get(i).getFone()%></td>
 					<td><%=lista.get(i).getEmail()%></td>
-					<td><a href="select?idcon=<%=lista.get(i).getIdcon() %>" class="Botao1">Editar</a></td>
+					<td><a href="select?idcon=<%=lista.get(i).getIdcon() %>" class="Botao1">Editar</a>
+					<a href="javaScript: confirmar(<%=lista.get(i).getIdcon() %>)" class="Botao2">Excluir</a><!-- lista.getIdcon, vai enviar a requisição para o ConfirmadorJscrip através do jsp  -->
+					</td>
 				</tr>
 			<%} %>
 		</tbody>
 	</table>
-	
+	<script src="scripts/confirmador.js"></script><!--Linkando agenda.jsp com JavaScript -->
 </body>
 </html>
